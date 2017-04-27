@@ -1,0 +1,22 @@
+[
+	{
+    "front": "\"Western\" numerals (i.e. 0-9) are actually called Arabic numerals",
+    "cloze": "Arabic"
+  }, 
+  {
+  	"front": "The name \"Muppet\" was coined by Jim Henson. The word was made from a combination of the word \"marionette\" and \"puppet.\"",
+    "cloze": "marionette"
+  },
+  {
+  	"front": "Highway 9 in New York runs from Manhattan all the way to the capital city of Albany. You might know it better by its common name: Broadway.",
+    "cloze": "Broadway"
+  },
+  {
+  	"front": "45% of Americans don't know that the sun is a star.",
+    "cloze": "star"
+  },
+  {
+  	"front": "Chuck Norris once heard nothing could kill him, so he tracked down nothing and killed it",
+    "cloze": "nothing"
+  }
+]
