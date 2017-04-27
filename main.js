@@ -69,7 +69,7 @@ class clozeCard extends card {
 	constructor(card) {
         super(card);
         this.cloze = card.cloze;
-        this.partial = card.front.replace(this.cloze, "...")
+        this.partial = card.front.split(this.cloze).join("...");
     }
 }
 
