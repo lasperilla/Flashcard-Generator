@@ -12,12 +12,12 @@ function newGame() {
         type: "list",
         message: "Choose flashcard type",
         choices: ["Basic", "Cloze", ">Exit"],
-        name: "userChoice"
-    }]).then(function(answers) {
-        if (answers.userChoice === "Basic") {
+        name: "input"
+    }]).then(function(response) {
+        if (response.input === "Basic") {
             mode = "basic";
             basicPrompt();
-        } else if (answers.userChoice === "Cloze") {
+        } else if (response.input === "Cloze") {
             mode = "cloze"
             clozePrompt();
         } else {
@@ -47,9 +47,9 @@ function done() {
         type: "list",
         message: "Play again?",
         choices: ["Yes", "No"],
-        name: "userInput"
-    }]).then(function(answers) {
-        if (answers.userInput === "Yes") {
+        name: "input"
+    }]).then(function(response) {
+        if (response.input === "Yes") {
             score = 0;
             count = 0;
             newGame();
@@ -80,10 +80,10 @@ function basicPrompt() {
     if (count < basic.length) {
         let flashcard = new card(basic[count]);
         inquirer.prompt([{
-            name: "userInput",
+            name: "input",
             message: flashcard.front
-        }]).then(function(answers) {
-            if (answers.userInput.toLowerCase() === flashcard.back) {
+        }]).then(function(response) {
+            if (response.input.toLowerCase() === flashcard.back) {
                 score++;
                 console.log("Correct");
                 console.log("Score: " + score);
@@ -106,10 +106,10 @@ function clozePrompt() {
     if (count < cloze.length) {
         let flashcard = new clozeCard(cloze[count]);
         inquirer.prompt([{
-            name: "userInput",
+            name: "input",
             message: flashcard.partial
-        }]).then(function(answers) {
-            if (answers.userInput.toLowerCase() === flashcard.cloze.toLowerCase()) {
+        }]).then(function(response) {
+            if (response.input.toLowerCase() === flashcard.cloze.toLowerCase()) {
                 score++;
                 console.log("Correct");
                 console.log("Score: " + score);
