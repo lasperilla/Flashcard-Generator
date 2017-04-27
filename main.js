@@ -1,10 +1,32 @@
-var inquirer = require("inquirer");
-var basic = require("./basic.json");
-var cloze = require("./cloze.json");
+const inquirer = require("inquirer");
+const basic = require("./basic.json");
+const cloze = require("./cloze.json");
 
-var score = 0;
-var count = 0;
-var mode;
+let score = 0;
+let count = 0;
+let mode;
+
+//user picks if they want to play with basic or cloze cards
+function newGame() {
+    inquirer.prompt([{
+        type: "list",
+        message: "Choose flashcard type",
+        choices: ["Basic", "Cloze", ">Exit"],
+        name: "userChoice"
+    }]).then(function(answers) {
+        if(answers.userChoice === "Basic") {
+            mode = "basic";
+            basicPrompt();
+        } else if(answers.userChoice === "Cloze") {
+            mode = "cloze"
+            clozePrompt();
+        } else {
+        	console.log("Goodbye.");
+        };
+    });
+};
+
+newGame();
 
 function done() {
     if (mode === "basic") {
@@ -53,7 +75,7 @@ class clozeCard extends card {
 
 function basicPrompt() {
     if (count < basic.length) {
-        var flashcard = new card(basic[count]);
+        let flashcard = new card(basic[count]);
         inquirer.prompt([{
             name: "userInput",
             message: flashcard.front
@@ -78,7 +100,7 @@ function basicPrompt() {
 
 function clozePrompt() {
     if (count < cloze.length) {
-        var flashcard = new clozeCard(cloze[count]);
+        let flashcard = new clozeCard(cloze[count]);
         inquirer.prompt([{
             name: "userInput",
             message: flashcard.partial
@@ -101,23 +123,4 @@ function clozePrompt() {
     };
 };
 
-function newGame() {
-    inquirer.prompt([{
-        type: "list",
-        message: "Choose flashcard type",
-        choices: ["Basic", "Cloze", ">Exit"],
-        name: "userChoice"
-    }]).then(function(answers) {
-        if(answers.userChoice === "Basic") {
-            mode = "basic";
-            basicPrompt();
-        } else if(answers.userChoice === "Cloze") {
-            mode = "cloze"
-            clozePrompt();
-        } else {
-        	console.log("Goodbye.");
-        };
-    });
-};
 
-newGame();
