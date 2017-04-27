@@ -14,20 +14,21 @@ function newGame() {
         choices: ["Basic", "Cloze", ">Exit"],
         name: "userChoice"
     }]).then(function(answers) {
-        if(answers.userChoice === "Basic") {
+        if (answers.userChoice === "Basic") {
             mode = "basic";
             basicPrompt();
-        } else if(answers.userChoice === "Cloze") {
+        } else if (answers.userChoice === "Cloze") {
             mode = "cloze"
             clozePrompt();
         } else {
-        	console.log("Goodbye.");
+            console.log("Goodbye.");
         };
     });
 };
 
 newGame();
 
+//tally final score, prompt play again?
 function done() {
     if (mode === "basic") {
         var length = basic.length;
@@ -43,21 +44,22 @@ function done() {
     console.log("");
 
     inquirer.prompt([{
-    	type: "list",
-    	message: "Play again?",
-    	choices: ["Yes", "No"],
-    	name: "userInput"
-    }]).then(function(answers){
-    	if (answers.userInput === "Yes") {
-    		score = 0;
-    		count = 0;
-    		newGame();
-    	} else {
-    		console.log("Thanks for playing.")
-    	};
-    })
-}
+        type: "list",
+        message: "Play again?",
+        choices: ["Yes", "No"],
+        name: "userInput"
+    }]).then(function(answers) {
+        if (answers.userInput === "Yes") {
+            score = 0;
+            count = 0;
+            newGame();
+        } else {
+            console.log("Thanks for playing.");
+        };
+    });
+};
 
+//constructors. pass in required jsons array indexes
 class card {
     constructor(card) {
         this.front = card.front;
@@ -66,13 +68,14 @@ class card {
 };
 
 class clozeCard extends card {
-	constructor(card) {
+    constructor(card) {
         super(card);
         this.cloze = card.cloze;
-        this.partial = card.front.split(this.cloze).join("...");
+        this.partial = card.front.split(this.cloze).join("..."); // replace all instances
     }
-}
+};
 
+//recursive inquirer for basic flashcards
 function basicPrompt() {
     if (count < basic.length) {
         let flashcard = new card(basic[count]);
@@ -86,7 +89,7 @@ function basicPrompt() {
                 console.log("Score: " + score);
             } else {
                 console.log("Incorrect");
-                console.log("Correct Answer: " + flashcard.back)
+                console.log("Correct Answer: " + flashcard.back);
                 console.log("Score: " + score);
             };
 
@@ -98,6 +101,7 @@ function basicPrompt() {
     };
 };
 
+//recursive for cloze
 function clozePrompt() {
     if (count < cloze.length) {
         let flashcard = new clozeCard(cloze[count]);
@@ -111,7 +115,7 @@ function clozePrompt() {
                 console.log("Score: " + score);
             } else {
                 console.log("Incorrect");
-                console.log("Correct Answer: " + flashcard.front)
+                console.log("Correct Answer: " + flashcard.front);
                 console.log("Score: " + score);
             };
 
@@ -122,5 +126,3 @@ function clozePrompt() {
         done();
     };
 };
-
-
